@@ -303,28 +303,30 @@ function searchPeople(arr) {
     })
 }
 // DRAG AND DROP
-function dragDrop() {
-    let start
-    let end
-    images = document.querySelectorAll(".card-img-top")
-    for(let img of images) {
-        img.addEventListener('mousedown', e => {
-            start = e.target
-            start.parentNode.parentNode.style.opacity = "0.5"
-            console.log(start.parentNode.parentNode.innerHTML)
-        })
 
-        img.addEventListener('mouseup', e => {
-            end = e.target
-            console.log(end)
-            start.parentNode.parentNode.style.opacity = "1"
-            endcontent = e.target.parentNode.parentNode.innerHTML
-            end.parentNode.parentNode.innerHTML = start.parentNode.parentNode.innerHTML
-            start.parentNode.parentNode.innerHTML = endcontent
-            dragDrop()
-        })
-    }
-    imgs = document.querySelectorAll(".card-img-top")
-    start = undefined
-    end = undefined
-}
+
+// function dragDrop() {
+//     let start
+//     let end
+//     images = document.querySelectorAll(".card-img-top")
+//     for(let img of images) {
+//         img.addEventListener('mousedown', e => {
+//             start = e.target
+//             start.parentNode.parentNode.style.opacity = "0.5"
+//             console.log(start.parentNode.parentNode.innerHTML)
+//         })
+//
+//         img.addEventListener('mouseup', e => {
+//             end = e.target
+//             console.log(end)
+//             start.parentNode.parentNode.style.opacity = "1"
+//             endcontent = e.target.parentNode.parentNode.innerHTML
+//             end.parentNode.parentNode.innerHTML = start.parentNode.parentNode.innerHTML
+//             start.parentNode.parentNode.innerHTML = endcontent
+//             dragDrop()
+//         })
+//     }
+//     imgs = document.querySelectorAll(".card-img-top")
+//     start = undefined
+//     end = undefined
+// }
