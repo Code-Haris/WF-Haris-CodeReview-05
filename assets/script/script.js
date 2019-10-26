@@ -200,15 +200,15 @@ let containerFav = document.getElementById('container-favorites')
 init()
 
 function init() {
-    displayPeople(data)
-    displayFav()
-    favToggle()
-    filterPeople(data)
+    showPeople(data)
+    showFavorite()
+    favoriteToggle()
+    fPeople(data)
     searchPeople(data)
-    dragDrop()
+   
 }
 // DIPLAY PEOPLE
-function displayPeople(arr) {
+function showPeople(arr) {
     containerPeople.innerHTML = ""
     for(let person of arr) {
         containerPeople.innerHTML +=
@@ -227,7 +227,7 @@ function displayPeople(arr) {
     }
 }
 // DISPLAY FAVORITE PEOPLE
-function displayFav() {
+function showFavorite() {
     containerFav.innerHTML = ""
     for(let person of data) {
         if(person.isFav === "true") {
@@ -252,15 +252,34 @@ function displayFav() {
     }
 }
 
-function favToggle() {
+function favoriteToggle() {
     containerPeople.addEventListener('click', e => {
         if(e.target.innerText === "♥") {
             console.log(e.target.parentNode.parentNode.id)
             e.target.classList.toggle("active")
             data[parseInt(e.target.parentNode.parentNode.id) - 1].isFav === "false" ? data[parseInt(e.target.parentNode.parentNode.id) - 1].isFav = "true" : data[parseInt(e.target.parentNode.parentNode.id) - 1].isFav = "false"
         }
-        displayFav()
+        showFavorite()
     })
+    // FILTERING PEOPLE
+function fPeople(arr) {
+    let btn = document.getElementById('filterBtn')
+    btn.children[0].addEventListener('click', e => {
+        arr.sort((a, b) => parseInt(a.age) - parseInt(b.age))
+        showPeople(arr)
+        
+    })
+    btn.children[1].addEventListener('click', e => {
+        let newArr = arr.filter(x => x.gender === "female")
+        showPeople(newArr)
+        
+    })
+    btn.children[2].addEventListener('click', e => {
+        let newArr = arr.filter(x => x.gender === "male")
+        showPeople(newArr)
+      
+    })
+}
 // CONTAINER FAVORITE PERSON
     containerFav.addEventListener('click', e => {
         if(e.target.innerText === "✗") {
@@ -268,28 +287,10 @@ function favToggle() {
             let current = document.getElementById(e.target.parentNode.parentNode.id)
             current.lastElementChild.lastElementChild.classList.remove("active")
         }
-        displayFav()
+        showFavorite()
     })
 }
-// FILTERING PEOPLE
-function filterPeople(arr) {
-    let btn = document.getElementById('filterBtn')
-    btn.children[0].addEventListener('click', e => {
-        arr.sort((a, b) => parseInt(a.age) - parseInt(b.age))
-        displayPeople(arr)
-        dragDrop()
-    })
-    btn.children[1].addEventListener('click', e => {
-        let newArr = arr.filter(x => x.gender === "female")
-        displayPeople(newArr)
-        dragDrop()
-    })
-    btn.children[2].addEventListener('click', e => {
-        let newArr = arr.filter(x => x.gender === "male")
-        displayPeople(newArr)
-        dragDrop()
-    })
-}
+
 // SEARCHING PEOPLE
 function searchPeople(arr) {
     let btn = document.getElementById('searchBtn')
@@ -298,35 +299,22 @@ function searchPeople(arr) {
     btn.addEventListener('click', e => {
         newArr = arr.filter(x => x.name.toLowerCase().startsWith(input.value.toLowerCase()))
         e.preventDefault()
-        displayPeople(newArr)
+        showPeople(newArr)
         dragDrop()
     })
+
+    //CONTACT 
+    (function($) {
+  "use strict"; // Start of use strict
+
+  // Detect when form-control inputs are not empty
+  $(".cool-b4-form .form-control").on("input", function() {
+    if ($(this).val()) {
+      $(this).addClass("hasValue");
+    } else {
+      $(this).removeClass("hasValue");
+    }
+  });
+})(jQuery); // End of use strict
 }
-// DRAG AND DROP
 
-
-// function dragDrop() {
-//     let start
-//     let end
-//     images = document.querySelectorAll(".card-img-top")
-//     for(let img of images) {
-//         img.addEventListener('mousedown', e => {
-//             start = e.target
-//             start.parentNode.parentNode.style.opacity = "0.5"
-//             console.log(start.parentNode.parentNode.innerHTML)
-//         })
-//
-//         img.addEventListener('mouseup', e => {
-//             end = e.target
-//             console.log(end)
-//             start.parentNode.parentNode.style.opacity = "1"
-//             endcontent = e.target.parentNode.parentNode.innerHTML
-//             end.parentNode.parentNode.innerHTML = start.parentNode.parentNode.innerHTML
-//             start.parentNode.parentNode.innerHTML = endcontent
-//             dragDrop()
-//         })
-//     }
-//     imgs = document.querySelectorAll(".card-img-top")
-//     start = undefined
-//     end = undefined
-// }
